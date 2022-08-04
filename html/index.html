@@ -1,0 +1,100 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">
+    <!--<link rel="stylesheet" href="../jquery-ui-1.13.2.custom/jquery-ui.min.css">-->
+    <link rel="stylesheet" href="../css/index_main.css">
+
+    <script src="../js/jquery-3.6.0.js"></script>
+    <script src="../jquery-ui-1.13.2.custom/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3/3.0.0-rc.5/web3.min.js"></script>
+    <script src="../js/votingAppConfig.js"></script>
+    <script src="../js/index_main.js"></script>
+    <script src="../js/Voter.js"></script>
+    <script src="../js/Candidate.js"></script>
+
+
+</head>
+
+<body>
+    <!---->
+    <div id="tabs">
+        <ul>
+            <li><a href="#contractOwner">Voting Authority</a></li>
+            <li><a href="#candidate" onclick="ViewCandidateProfiles('Candidate')">Candidates</a></li>
+            <li><a href="#voter">Voters</a></li>
+        </ul>
+        <!--Div section for contract owner to trigger voting-->
+        <div id="contractOwner" style="display:block">
+            <br><br>
+            <div id="ownerLogin">
+                <label title="Please provide a valid Owner Private key">Voting Authority Login: </label><br><br>
+                <input type="text" id="ownerPrivateKey" placeholder="Please provide a valid Owner Private key"
+                    required></input><br><br><br><br>
+                <button type="submit" id="btnownerLogin" onclick="ownerLogin()">Login</button>
+            </div>
+            <div id="ownerActions" style="width:50%; display: none;">
+                <button title="Start Election" value="Start Election" type="button" onclick="StartElection()">Start
+                    Election</button>
+                <button title="End election" value="End Election" type="button" style="float: right;" onclick="EndElection()">End
+                    Election</button><br><br>
+                <button title="Register Candidate" value="Register Candidate" type="button"
+                    onclick="openCandidateRegistrationForm()">Register
+                    Candidate</button>
+                <br><br>
+                <button title="Voting Results" value="Voting Results" type="button" 
+                    onclick="showResults()">Voting
+                    Results</button><br><br>
+                <button title="LogOut" value="LogOut" type="button"  onclick="ownerLogout()">Log
+                    Out</button>
+            </div>
+        </div>
+        <!--Div section for candidates standing in the election-->
+        <div id="candidate" style="display:block"><br><br>
+            <div id="CandidateProfile" style="display:none;"><span>Placeholder for Candidate Profiles</span></div>
+
+        </div>
+        <!--Div section for voters to cast their votes-->
+        <div id="voter" style="display:block;"><br><br>
+            <div id="voterLogin">
+                <label title="Please provide a valid Voter Private key">Voter Login: </label><br><br>
+                <input type="text" id="voterPrivateKey" placeholder="Please provide a valid Voter Private key"></input><br><br><br><br>
+                <button type="submit" id="btnVoterLogin" onclick="voterLogin()">Login</button>
+            </div><br><br>
+            <div id="voterRegistration">
+                <label title="Please provide a valid Voter ETH address">Voter ETH Address: </label><br><br>
+                <input type="text" id="voterEthAddress" placeholder="Please provide a valid Voter ETH Address"
+                    required></input><br><br><br><br>
+                <button id="btnRegisterVoter" onclick="RegisterVoter()">Register</button>
+            </div>
+            <div id="voterActions" style="display: none;">
+                <div id="CastVote">
+                    <button id="btnCastVote" onclick="CastVote()">Cast Vote</button><br><br><br>
+                    <button id="btnViewCandidateProfiles" onclick="ViewCandidateProfiles('Voter')" type="button">View Candidate Profiles</button><br><br><br>
+                    <button id="btnVoterLogout" onclick="VoterLogOut()">Log out</button>
+                </div>
+            </div>
+                
+        </div>
+        <div id="VotingResults" style="display:none;"><span>Placeholder for Voting results</span></div>
+        <div id="CandidateProfiles" style="display:none;"><span>Placeholder for Candidate Profiles</span></div>
+        <div id="CandidateRegistration" style="display:none">
+            <label>Candidate ETH Address: </label><br><input type="text" id="candidateEthAddress" /><br><br>
+            <label>Candidate Photo: </label><br><input type="text" id="candidatePhoto"><br><br>
+            <label>Candidate Strengths: </label><br><textarea id="candidateStrengths"></textarea><br><br>
+        </div>
+        <div id="CastVoteForCandidate" style="display:none">
+            <label>Candidate ETH Address: </label><br>
+            <input type="text" id="candidateEthAddressForVote" /><br><br>
+            
+
+        </div>
+        
+    </div>
+</body>
+
+
+</html>

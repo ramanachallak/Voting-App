@@ -1,0 +1,38 @@
+button {
+
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #007fff;
+    color: white;
+
+}
+
+.ui-dialog-buttonset button{
+
+    background-color: #007fff !important;
+    padding: 10px !important;
+    border-radius: 5px !important;
+    color: white !important;
+
+}
+
+
+
+input, textarea {
+    border-radius: 5px;
+    background-color: lightgray;
+    width: 50%;
+    
+}
+
+input{
+    height: 50px;
+}
+textarea{
+    height:100px;
+}
+
+label{
+
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif ;
+}
