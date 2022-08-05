@@ -21,7 +21,7 @@ function RegisterVoter() {
                     localStorage.setItem(voterEthAddr + "_Voter", "voter");
                     alert("Voter registration successfull");
                     $("#voterEthAddress").val("");
-                }, function(error){
+                }, function (error) {
 
                     alert("Error occured in voter registration process - " + error);
                     $("#voterEthAddress").val("");
@@ -55,7 +55,7 @@ function voterLogin() {
 
     } catch (exception) {
         alert("Error occured" + exception);
-        
+
 
     }
 
@@ -65,30 +65,30 @@ function CastVote() {
 
     console.log("This checks to see if the voter is not one of the candidates");
     $("#CastVoteForCandidate").dialog("open");
-    
+
 
 }
 
-function SendVote(){
+function SendVote() {
 
     var candidateAddress = $("#candidateEthAddressForVote").val();
     //before casting the vote, we have to check for active voting period
 
-    try{
+    try {
 
         voting_contract.methods.castMyVote(candidateAddress)
-        .send({"from":voterAddress})
-        .then(function(){
-            alert("Vote successful");
-            $("#candidateEthAddressForVote").val("");
-            $("#CastVoteForCandidate").dialog("close");
-        }, function(error){
-            alert("Error occured - " + error);
-            $("#candidateEthAddressForVote").val("");
-            $("#CastVoteForCandidate").dialog("close");
-        });
+            .send({ "from": voterAddress })
+            .then(function () {
+                alert("Vote successful");
+                $("#candidateEthAddressForVote").val("");
+                $("#CastVoteForCandidate").dialog("close");
+            }, function (error) {
+                alert("Error occured - " + error);
+                $("#candidateEthAddressForVote").val("");
+                $("#CastVoteForCandidate").dialog("close");
+            });
 
-    }catch(error){
+    } catch (error) {
 
     }
 
@@ -106,21 +106,54 @@ function VoterLogOut() {
 
 }
 
-function ViewCandidateProfiles(source) {
+function ViewCandidateProfiles() {
     console.log("Displays the profiles of the registered candidates");
-    switch (source) {
-        case "Voter":
-            console.log("profiles should be shown as a dialog");
-            $("#CandidateProfiles").dialog("open");
-            break;
 
-        case "Candidate":
-            console.log("profiles should be shown as a div");
-            $("#CandidateProfile").show();
-            GetCandidates();
-            break;
+    $("#CandidateProfiles").dialog("open");
+    $("#CandidateProfiles").css("display", "flex");
+    GetCandidatesFromLocal();
+
+
+}
+
+function GetCandidatesFromLocal() {
+
+    var candidates = [];
+    var candidateCounter = 0;
+    var html = "";
+    for (var i = 0; i < localStorage.length; i++) {
+
+        if (localStorage[localStorage.key(i)].indexOf("Candidate") > -1) {
+            console.log("Candidate found");
+            candidateCounter = candidateCounter + 1;
+            candidateJson = JSON.parse(localStorage[localStorage.key(i)])[0];
+            candidates.push(candidateJson["CandidateAddress"]);
+
+            var strengthstext = candidateJson['CandidateStrengths'];
+            
+            var strengthshtml = strengthstext.replaceAll("\n", "<br>");
+
+            //create a div for each candidate and append it to the parent div
+            html = "<div style='float:left'><span><strong>Candidate" + candidateCounter + "</strong></span><br><br><br>";
+            //appending the candidate photo
+            html = html + "<img src='" + candidateJson["CandidatePhoto"] + "' style='width:100px;height:100px'/><br><br><br>";
+            html = html + "<span><strong>Strengths</strong>: <br><br><span>" + strengthshtml + "</span></span>";
+            html = html + "</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>";
+
+            $("#CandidateProfiles").append(html);
+
+
+
+
+        } else {
+            console.log("Candidate not found");
+        }
+
 
     }
+
+    console.log(candidates);
+
 
 
 }

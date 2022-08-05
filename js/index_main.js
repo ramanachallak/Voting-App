@@ -41,6 +41,7 @@ $(document).ready(function () {
     InitializeCandidateRegistrationDialog();
     InitializeVotingResultsDialog();
     InitializeCandidateProfileDialog();
+    InitializeCandidateProfileUpdateDialog();
     InitializeCandidateVoteDialog();
     
 
@@ -209,6 +210,7 @@ function InitializeCandidateVoteDialog() {
         height: 350,
         width: "50%",
         modal: true,
+        title: "Cast Vote",
         buttons: {
             "Vote": SendVote,
             Cancel: function () {
@@ -235,6 +237,7 @@ function InitializeCandidateRegistrationDialog() {
         height: 350,
         width: "50%",
         modal: true,
+        title: "Candidate Registration",
         buttons: {
             "Register Candidate": RegisterCandidate,
             Cancel: function () {
@@ -260,6 +263,7 @@ function InitializeVotingResultsDialog() {
         height: 450,
         width: 1000,
         modal: true,
+        title: "Voting Results",
         buttons: {
 
             "Close": function () { $("#VotingResults").dialog("close"); }
@@ -279,12 +283,13 @@ function InitializeVotingResultsDialog() {
 function InitializeCandidateProfileDialog() {
     $("#CandidateProfiles").dialog({
         autoOpen: false,
-        height: 350,
-        width: "50%",
+        height: 500,
+        width: 900,
         modal: true,
+        title: "Candidate Profiles",
         buttons: {
 
-            "Close": function () { $("#CandidateProfiles").dialog("close"); }
+            "Close": function () { $("#CandidateProfiles").html("").dialog("close"); }
         },
 
         show: {
@@ -297,6 +302,29 @@ function InitializeCandidateProfileDialog() {
         }
     });
 
+}
+
+function  InitializeCandidateProfileUpdateDialog(){
+    $("#CandidateProfile").dialog({
+        autoOpen: false,
+        height: 500,
+        width: 700,
+        modal: true,
+        title: "Update Candidate Profile",
+        buttons: {
+            "Update Profile": UpdateProfile,
+            "Close": function () { $("#CandidateProfile").dialog("close"); }
+        },
+
+        show: {
+            effect: "fadeIn",
+            duration: 1000
+        },
+        hide: {
+            effect: "fadeOut",
+            duration: 1000
+        }
+    });
 }
 
 function showResults() {

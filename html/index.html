@@ -1,8 +1,8 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">
-    <!--<link rel="stylesheet" href="../jquery-ui-1.13.2.custom/jquery-ui.min.css">-->
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">-->
+    <link rel="stylesheet" href="../css/jquery-.ui.min.css">
     <link rel="stylesheet" href="../css/index_main.css">
 
     <script src="../js/jquery-3.6.0.js"></script>
@@ -24,7 +24,7 @@
     <div id="tabs">
         <ul>
             <li><a href="#contractOwner">Voting Authority</a></li>
-            <li><a href="#candidate" onclick="ViewCandidateProfiles('Candidate')">Candidates</a></li>
+            <li><a href="#candidate">Candidates</a></li>
             <li><a href="#voter">Voters</a></li>
         </ul>
         <!--Div section for contract owner to trigger voting-->
@@ -54,7 +54,21 @@
         </div>
         <!--Div section for candidates standing in the election-->
         <div id="candidate" style="display:block"><br><br>
-            <div id="CandidateProfile" style="display:none;"><span>Placeholder for Candidate Profiles</span></div>
+            <!--<div id="CandidateProfile" style="display:none;"><span>Placeholder for Candidate Profiles</span></div>-->
+            <div id="candidateLogin">
+                <label title="Please provide a valid Candidate Private key">Candidate Login: </label><br><br>
+                <input type="text" id="candidatePrivateKey" placeholder="Please provide a valid Candidate Private key"></input><br><br><br><br>
+                <button type="submit" id="btnCandidateLogin" onclick="candidateLogin()">Login</button>
+            </div><br>
+            <div id="candidateActions" style="display:none;">
+                <button id="btnUpdateProfile" onclick="UpdateCandidateProfile()"> Update Candidate Profile</button><br><br>
+                <button id="btnCandidateLogOut" onclick="LogOutCandidate()">Log Out</button>
+            </div>
+            <div id="CandidateProfile" style="display:none;">
+                <label>Candidate Photo: </label><br><br>
+                <input type="text" id="candidateProfilePhoto" placeholder="Please provide the location of the Candidate photo"></input><br><br><br><br>
+                <label>Candidate Strengths: </label><br><br><textarea id="candidateProfileStrengths"></textarea><br><br>
+            </div>
 
         </div>
         <!--Div section for voters to cast their votes-->
@@ -80,7 +94,7 @@
                 
         </div>
         <div id="VotingResults" style="display:none;"><span>Placeholder for Voting results</span></div>
-        <div id="CandidateProfiles" style="display:none;"><span>Placeholder for Candidate Profiles</span></div>
+        <div id="CandidateProfiles" style="display:none;"></div>
         <div id="CandidateRegistration" style="display:none">
             <label>Candidate ETH Address: </label><br><input type="text" id="candidateEthAddress" /><br><br>
             <label>Candidate Photo: </label><br><input type="text" id="candidatePhoto"><br><br>
