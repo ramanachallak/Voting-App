@@ -55,6 +55,7 @@ function voterLogin() {
 
     } catch (exception) {
         alert("Error occured" + exception);
+        $("#voterPrivateKey").val("");
 
 
     }
@@ -134,9 +135,9 @@ function GetCandidatesFromLocal() {
             var strengthshtml = strengthstext.replaceAll("\n", "<br>");
 
             //create a div for each candidate and append it to the parent div
-            html = "<div style='float:left'><span><strong>Candidate" + candidateCounter + "</strong></span><br><br><br>";
+            html = "<div style='float:left'><span><strong>Candidate - " + candidateJson["CandidateName"] + "</strong></span><br><br><br>";
             //appending the candidate photo
-            html = html + "<img src='" + candidateJson["CandidatePhoto"] + "' style='width:100px;height:100px'/><br><br><br>";
+            html = html + "<img src='" + candidateJson["CandidatePhoto"] + "'/><br><br><br>";
             html = html + "<span><strong>Strengths</strong>: <br><br><span>" + strengthshtml + "</span></span>";
             html = html + "</div><div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>";
 

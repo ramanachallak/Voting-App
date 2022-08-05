@@ -38,8 +38,16 @@ label span{
 }
 
 img{
+    width: 100px;
+    height: 100px;   
     border-radius: 10px;
     box-shadow: 8px 8px lightblue;
+    transition: width 2s, height 4s;
     
     
+}
+
+img:hover{
+    width: 150px;
+    height: 150px;
 }

@@ -19,7 +19,7 @@ async function GetCandidates() {
             await GetNumberOfVotes(candidate_json["CandidateAddress"]).then(function(data){
                 console.log("Number of votes returned - " + data);
                 //CandidateVotes.push({ "label": candidate_json["CandidateAddress"], "y": Number(data), "indexLabel": data});
-                CandidateVotes.push({ "label": "Candidate"+candidateCount, "y": Number(data), "indexLabel": data});
+                CandidateVotes.push({ "label": candidate_json["CandidateName"], "y": Number(data), "indexLabel": data});
             });
             
             
@@ -56,9 +56,11 @@ function DisplayGraph(CandidateVotes){
 
     var options = {
         animationEnabled: true,
+        theme: "light2",
         title: {
             text: "Voting Results",                
-            fontColor: "#212121"
+            //fontColor: "#212121"
+            //fontColor: "#a9a9a9"
         },	
         axisY: {
             tickThickness: 0,
@@ -99,8 +101,10 @@ function candidateLogin(){
 
         if (localStorage.getItem(candidateAddress + "_Voter")) {
             //user is a registered voter, take them to the voter options
+            $("#candidatePrivateKey").val("");
             $("#candidateLogin").fadeOut(1000);            
             $("#candidateActions").fadeIn(3000);
+            
 
         } else {
             alert("Candidate is not registered!");
@@ -119,15 +123,18 @@ function UpdateProfile(){
     var candidateJson = JSON.parse(localStorage.getItem(candidateAddress + "_Candidate"))[0];
     var candidatePhotoLocation = $("#candidateProfilePhoto").val();
     var candidateStrengthsValue = $("#candidateProfileStrengths").val();
+    var candidateNamevalue = $("#candidateName").val();
 
     candidateJson.CandidatePhoto = candidatePhotoLocation;
     candidateJson.CandidateStrengths = candidateStrengthsValue;
+    candidateJson.CandidateName = candidateNamevalue;
 
     var candidateJsonString = JSON.stringify([candidateJson]);
     
     localStorage.setItem(candidateAddress+"_Candidate", candidateJsonString);
     $("#candidateProfilePhoto").val("");
     $("#candidateProfileStrengths").val("");
+    $("#candidateName").val("");
 
     $("#CandidateProfile").dialog("close");
 
@@ -135,6 +142,7 @@ function UpdateProfile(){
 
 function UpdateCandidateProfile(){
     $("#CandidateProfile").dialog("open");
+    GetCandidateInformation(candidateAddress);
 }
 
 function LogOutCandidate(){
@@ -143,5 +151,13 @@ function LogOutCandidate(){
     $("#candidateLogin").fadeIn(3000);            
     
 
+}
+
+function GetCandidateInformation(address){
+    var candidateJson = JSON.parse(localStorage.getItem(address + "_Candidate"))[0];
+
+    $("#candidateProfilePhoto").val(candidateJson.CandidatePhoto);
+    $("#candidateProfileStrengths").val(candidateJson.CandidateStrengths);
+    $("#candidateName").val(candidateJson.CandidateName);
 }
 
