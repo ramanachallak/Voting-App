@@ -181,12 +181,12 @@ function RegisterCandidate() {
             .send({ from: ownerAddress })
             .then(function (data) {
                 alert("Candidate Registration complete");
-                console.log(data);
+                //console.log(data);
                 $("#CandidateRegistration").dialog("close");
                 localStorage.setItem(candidateEthAddr + "_Candidate", candidateString);
             }, function (data) {
                 alert("Candidate Registration failed");
-                console.log(data);
+                //console.log(data);
                 $("#CandidateRegistration").dialog("close");
             });
 

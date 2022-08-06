@@ -4,7 +4,7 @@ var voterAddress;
 
 
 function RegisterVoter() {
-    console.log("this should register the voter");
+    //console.log("this should register the voter");
     try {
         //check local storage to see if voter has been added
         var voterEthAddr = $("#voterEthAddress").val();
@@ -64,7 +64,7 @@ function voterLogin() {
 
 function CastVote() {
 
-    console.log("This checks to see if the voter is not one of the candidates");
+    //console.log("This checks to see if the voter is not one of the candidates");
     $("#CastVoteForCandidate").dialog("open");
 
 
@@ -108,7 +108,7 @@ function VoterLogOut() {
 }
 
 function ViewCandidateProfiles() {
-    console.log("Displays the profiles of the registered candidates");
+    //console.log("Displays the profiles of the registered candidates");
 
     $("#CandidateProfiles").dialog("open");
     $("#CandidateProfiles").css("display", "flex");
@@ -126,7 +126,7 @@ function GetCandidatesFromLocal() {
     for (var i = 0; i < localStorage.length; i++) {
 
         if (localStorage[localStorage.key(i)].indexOf("Candidate") > -1) {
-            console.log("Candidate found");
+            //console.log("Candidate found");
             candidateCounter = candidateCounter + 1;
             candidateJson = JSON.parse(localStorage[localStorage.key(i)])[0];
             candidates.push(candidateJson["CandidateAddress"]);
@@ -148,13 +148,14 @@ function GetCandidatesFromLocal() {
 
 
         } else {
-            console.log("Candidate not found");
+            //console.log("Candidate not found");
+            
         }
 
 
     }
 
-    console.log(candidates);
+    //console.log(candidates);
 
 
 

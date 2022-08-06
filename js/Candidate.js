@@ -17,14 +17,14 @@ async function GetCandidates() {
             var candidate_json = JSON.parse(localStorage.getItem(localStorage.key(i)))[0];
             //candidates.push(candidate_json);
             await GetNumberOfVotes(candidate_json["CandidateAddress"]).then(function(data){
-                console.log("Number of votes returned - " + data);
+                //console.log("Number of votes returned - " + data);
                 //CandidateVotes.push({ "label": candidate_json["CandidateAddress"], "y": Number(data), "indexLabel": data});
                 CandidateVotes.push({ "label": candidate_json["CandidateName"], "y": Number(data), "indexLabel": data});
             });
             
             
         } else {
-            console.log("candidate not found");
+            //console.log("candidate not found");
         }
     }
     
@@ -40,7 +40,7 @@ async function GetNumberOfVotes(candidateaddr) {
 
     await voting_contract.methods.getNumberVotes(candidateaddr).call().then(function (votes) {
         //CandidateVotes.push({ "label": candidateaddr, "y": Number(data), "indexLabel": candidateaddr });
-        console.log("Number of votes retrieved - " + votes);
+        //console.log("Number of votes retrieved - " + votes);
         voteCount = votes;
         
 
