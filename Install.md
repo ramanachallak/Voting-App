@@ -3,6 +3,7 @@
 
 ### This project has library dependencies than actual installation steps. The following lists all the dependencies and related links -   
 &nbsp;  
+* [Remix IDE](https://remix.ethereum.org/#optimize=false&runs=200&evmVersion=null&version=soljson-v0.8.7+commit.e28d00a7.js)
 * Solidity v 0.5.0
 * [SafeMath.sol](https://github.com/OpenZeppelin/openzeppelin-contracts/blob/release-v2.5.0/contracts/math/SafeMath.sol)
 * [jquery-.ui.min.css](css/jquery-.ui.min.css)
