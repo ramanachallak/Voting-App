@@ -5,6 +5,7 @@ var owner_Address;
 var voting_start_time;
 var voting_end_time;
 
+//Setting the global variables of Contract Owner Address, Voting Start time and Voting End time
 voting_contract.methods
     .getOwner()
     .call()
@@ -33,11 +34,12 @@ voting_contract.methods
 
 $(document).ready(function () {
 
-
+    //Setting the Owner, Candidate and Visitor divs into tabs
     $(function () {
         $("#tabs").tabs();
     });
-    console.log("Initializing dialog boxes");
+    
+    //Initializing dialog boxes for various actions available for Owners, Candidates and Voters
     InitializeCandidateRegistrationDialog();
     InitializeVotingResultsDialog();
     InitializeCandidateProfileDialog();
@@ -49,7 +51,7 @@ $(document).ready(function () {
 });
 
 
-
+//Function to handle owner login
 function ownerLogin() {
 
     try {
@@ -71,6 +73,7 @@ function ownerLogin() {
     } catch (exception) {
 
         alert("Exception occured - " + exception);
+        $("#ownerPrivateKey").val("");
 
     }
 
@@ -83,8 +86,6 @@ function StartElection() {
 
     //check if voting period is still active
     //if active alert the user 
-
-    //not using isOpen method, will check against javascript datetimenow with startTime and endTime
 
     var dateTimeNow = ((new Date() - 1) / 1000).toFixed(0);
     var votingStartTime = localStorage.getItem("Voting Start Time");
@@ -103,23 +104,22 @@ function StartElection() {
                 .setStartTime(dateTimeNow)
                 .send({ "from": owner_Address })
                 .then(localStorage.setItem("Voting Start Time", dateTimeNow));
-            //Setting end time to datetimenow + 5*60 (in seconds)
+            //Setting end time to datetimenow + 5*60 (in seconds) 5 minutes, 300 seconds
             voting_contract.methods
                 .setEndTime(Number(dateTimeNow) + 5 * 60 )
                 .send({ "from": owner_Address })
                 .then(localStorage.setItem("Voting End Time", Number(dateTimeNow) + 5 * 60));
 
+                alert("Voting session is now active");
+
         } catch (error) {
             alert("Error occured while setting Start Time - " + error);
         }
-
-
-
     }
 
 
 }
-
+//Function to handle the onclick event of the End Election button. Sets the endtime of the contract to datetimeNow
 function EndElection() {
 
     var dateTimeNow = ((new Date() - 1) / 1000).toFixed(0);
@@ -140,20 +140,10 @@ function EndElection() {
 
 }
 
+//function to logout the voting authority/contract owner
 function ownerLogout() {
 
-    /**var ownerButtons = $("#contractOwner").find("button");
-
-    ownerButtons.each(function () {
-
-        $(this).hide();
-
-    });
-
-    $("#ownerLogin").show();
-
-    $("#btnownerLogin").show();
-    $("#ownerPrivateKey").val("");**/
+    
     $("#ownerLogin").fadeIn(3000);
     $("#ownerActions").fadeOut(1000);
     $("#ownerPrivateKey").val("");
@@ -163,15 +153,16 @@ function ownerLogout() {
 }
 
 function resetFields() {
-    console.log("this method should reset the fields in the dialog box");
+    
     $("#CandidateRegistration").find("input").each(function (item, htmlelement) { $(htmlelement).val(" "); });
     $("#CandidateRegistration").find("textarea").val(" ");
 }
 
 function RegisterCandidate() {
 
+    try{
 
-    var candidateEthAddr = $("#candidateEthAddress").val();
+        var candidateEthAddr = $("#candidateEthAddress").val();
     var candidatePhotoLocation = $("#candidatePhoto").val();
     var candidateStrengthsValue = $("#candidateStrengths").val();
     var candidateJson = [{ "CandidateAddress": candidateEthAddr, "CandidatePhoto": candidatePhotoLocation, "CandidateStrengths": candidateStrengthsValue }];
@@ -200,6 +191,14 @@ function RegisterCandidate() {
             });
 
     }
+
+
+    }catch(error){
+
+        alert("Error occured in Candidate registration - " + error);
+
+    }
+    
 
 }
 
@@ -283,13 +282,13 @@ function InitializeVotingResultsDialog() {
 function InitializeCandidateProfileDialog() {
     $("#CandidateProfiles").dialog({
         autoOpen: false,
-        height: 500,
-        width: 900,
+        height: 550,
+        width: 1100,
         modal: true,
         title: "Candidate Profiles",
         buttons: {
 
-            "Close": function () { $("#CandidateProfiles").html("").dialog("close"); }
+            "Close": function () { $("#CandidateProfiles").html(""); $("#CandidateProfiles").dialog("close"); }
         },
 
         show: {

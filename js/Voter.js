@@ -119,6 +119,7 @@ function ViewCandidateProfiles() {
 
 function GetCandidatesFromLocal() {
 
+    $("#CandidateProfiles").html("");
     var candidates = [];
     var candidateCounter = 0;
     var html = "";
